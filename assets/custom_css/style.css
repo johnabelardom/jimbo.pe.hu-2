@@ -1,0 +1,133 @@
+* {
+	font-family: Century Gothic;
+}
+
+body {
+	margin: 0;
+
+}
+
+a {
+	text-decoration: none;
+
+}
+
+.brand-name {
+	color: white;
+	font-size: 2.9em;
+}
+
+
+
+.bn-off {
+	text-align: center;
+}
+
+.bn-on {
+	text-align: left;
+	
+}
+
+.moreBtn {
+	float: right;
+	color: white;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+.nav-container {
+	justify-content: center;
+	text-align: center;
+}
+
+.header-off, .header-on {
+	background-color: #333;
+}
+
+.navlist {
+	text-align: center;
+	margin: 0 auto;
+	padding: 20;
+}
+
+.nav-butts {
+	display: block;
+
+	border: 1px solid;
+}
+
+.nav-butts li {
+	margin-bottom: 20px;
+}
+
+.nav-butts a {
+	color: black;
+}
+
+.navmenu {
+	background-color: #eee;
+	border-radius: 5px;
+	right: 0;
+}
+
+.nav {
+	display: inline;
+}
+
+.section-off {
+	display: flex;
+	justify-content: center;
+}
+
+.login-form-div {
+	text-align: center;
+	border: 1px #333 solid;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	dasdisplay: flex;
+	wasdidth: 15%;
+	padding: 3%;
+}
+
+.login-form {
+	justify-content: center;
+	margin: 0 auto;
+}
+
+.loginBtn {
+	padding: 5px;
+	background-color: transparent;
+	border: 1px #000 solid;
+}
+
+.inputs {
+	padding: 5px;
+	font-size: 15px;
+	border: .5px #000 solid;
+}
+
+.footer {
+	justify-content: center;
+	display: flex;
+	color: white;
+	background-color: #444;
+	text-align: center;
+	height: 100px;
+}
+
+.primary-content {
+	justify-content: center;
+	display: inline;
+	padding: 5%;
+}
+
+.afeed {
+	margin: 0 auto;
+	sdtext-aslign: center;
+	padding-left: 10%;
+	padding-right: 10%;
+	justify-content: center;
+}
+
