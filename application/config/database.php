@@ -49,10 +49,10 @@ $active_group = 'default';
 $active_record = TRUE;
 
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'jimbo';
+$db['default']['hostname'] = $GLOBALS['dbhostname'];
+$db['default']['username'] = $GLOBALS['dbusername'];
+$db['default']['password'] = $GLOBALS['dbpassword'];
+$db['default']['database'] = $GLOBALS['dbname'];
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

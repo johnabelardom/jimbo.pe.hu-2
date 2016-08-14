@@ -10,6 +10,7 @@
 
 <link href="<?php echo base_url(); ?>assets/custom_css/style.css" rel="stylesheet">
 <script src="<?php echo base_url();?>assets/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url();?>assets/jquery/jquery-ui.min.js"></script>
 
 <!-- <script src="<?php echo base_url();?>assets/bootstrap/dist/js/bootstrap.min.js"></script> -->
 <!-- <script src="<?php echo base_url();?>assets/bootstrap/dist/js/bootstrap.js"></script> -->

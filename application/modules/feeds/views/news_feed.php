@@ -6,22 +6,22 @@ $fullname = $this->session->userdata('fname') . ' ' . $this->session->userdata('
 
 	<span style="color: red" class="msg"></span>
 
-<div style="display: inline-block">
-	<div style="display: inline-block; border: 1px #ddd solid">
-		<span style="border-bottom: 1px #ddd solid"><?php echo $fullname; ?> >> <a href="#" class="posterBtn">Post</a></span>
+<div style="" class="afeed">
+	<div style=" border: 1px #ddd solid">
+		<span style="border-bottom: 1px #ddd solid"><?php echo $fullname; ?> >> <button href="#" class="posterBtn">Post</button></span>
 		<div class="inputforpost" style="display: none;">
 			<?php 
-				$attr = array();
-				echo form_open('feeds/postFeedcheck');
+				$attr = array('class' => 'formposter', 'onsubmit' => 'return submitPostcheck()');
+				echo form_open('feeds/postFeedcheck', $attr);
 			?>
 			<!-- <form method="post" action="feeds/postFeed"> -->
 				<!-- <input type="hidden" class="ownerid" value="<?php echo $this->session->userdata('user_id');?>"> -->
 				<!-- <input type="hidden" class="ownername" value="<?php echo $fullname ; ?>"> -->
 				<!-- <span class="errs" style="margin-left: 10px; color: red; border-left: 2px #ff0039 solid"><?php if(isset($msgerr)){echo $msgerr;} ?></span> -->
-				<span style="border-bottom: 1px #ddd solid"><textarea name="content" cols="100" rows="7" id="txtpost" class="postcontent"></textarea></span><br>
-				<span style="border-bottom: 1px #ddd solid"><input type="button" value="Choose file" disabled></span>
-				<input type="hidden" name="file" value="">
-				<span style="border-bottom: 1px #ddd solid"><button id="postBtn">Post</button></span>
+				<span style="border-bottom: 1px #ddd solid"><textarea style="width: 100%; height: 20%;" name="content" id="txtpost" class="postcontent"></textarea></span><br>
+				<!-- <span style="border-bottom: 1px #ddd solid"><input type="button" value="Choose file" ></span> -->
+				<!-- <input type="hidden" name="file" value=""> -->
+				<span style="border-bottom: 1px #ddd solid"><button href="#" id="postBtn">Post</button></span>
 			<!-- </form> -->
 			<?php 
 				echo form_close();
@@ -36,32 +36,40 @@ $fullname = $this->session->userdata('fname') . ' ' . $this->session->userdata('
 if($msg == ""){
 	$current_user = $fullname;
 
-	echo '<div class="afeed" style="display: inline-block">';
+	echo '<div class="afeed" style="">';
 	foreach ($feeds as $feed) {
 		if($current_user == $feed->ownername) {
 			
 			echo '<div class="optionbutts-' . $feed->id . '" style="float: right;">';
 			// echo '<input type="hidden" value="' . $feed->id . '">';
-			echo '<span style="margin-right: 5px;"><a value="' . $feed->id . '" href="#" class="editpost">Edit</a></span>';
-			echo '<span style="margin-right: 5px;"><a value="' . $feed->id . '" href="#" class="deletepost">Delete</a></span>';			
+			echo '<span style="margin-right: 5px;"><button value="' . $feed->id . '" data-change="non-edit-mode" class="editpost">Edit</button></span>';
+			echo '<span style="margin-right: 5px;"><button value="' . $feed->id . '" class="deletepost">Delete</button></span>';			
 			echo '</div>';
 
 			echo '<div class="hidedit' . $feed->id . '" style="display: none;">';
-			echo form_open('feeds/updatePost');
-				echo '<input type="hidden" value="' . $feed->id . '" name="edID">';
-				echo '<span style="border-bottom: 1px #ddd solid"><textarea name="contenttext" cols="100" rows="7" value="' . $feed->content . '"' . 
-				'>' . $feed->content . '</textarea></span><br>';
-				echo '<span style="border-bottom: 1px #ddd solid"><a style="cursor: pointer; margin-right: 10px;" value="' . $feed->id . '" id="updateBtn">Update</a></span>';
-				echo '<span style="border-bottom: 1px #ddd solid"><button href="#" data-id="' . $feed->id . '" id="cancelBtn">Cancel</button></span>';				
-				echo '</div>';
+			// $atrr = array('onsubmit' => 'updatefeed()');
+			// echo form_open('feeds/updatePost', $attr);
+			echo '<form">';
+				echo '<input type="hidden" value="' . $feed->id . '" name="editid">';
+				echo '<span style="border-bottom: 1px #ddd solid"><textarea name="contenttext" style="width: 100%; height: 18%;"' . 
+				'>' . htmlspecialchars($feed->content) . '</textarea></span><br>';
+				echo '<span style="border-bottom: 1px #ddd solid"><button type="submit" style="cursor: pointer; margin-right: 10px;" value="' . $feed->id . '" id="updateBtn">Update</button></span>&nbsp;';		
 			echo form_close();
+
+				//echo '<button data-id="' . $feed->id . '" id="cancelBtn">Cancel</button>';	
+			echo '</div>';
+			
 		}else {
 
 		}
+
+		$date = strtotime($feed->date_created);
+		$dateformat = date("M d, Y ", $date) . "at " . date("H:i a", $date);
+
 		echo '<div class="postfeedcontent' . $feed->id . '" style="border: 2px #ddd solid">';	
 		echo '<span style="border-bottom: 1px #ddd solid"><strong>' . $feed->ownername . '</strong></span><br>';
-		echo '<span style="border-bottom: 1px #ddd solid">' . $feed->date_created . '</span>';
-		echo '<span style="border: 1px #ddd solid"><p>' . $feed->content . '</p></span>';
+		echo '<span style="border-bottom: 1px #ddd solid">' . $dateformat . '</span>';
+		echo '<span style="border: 1px #ddd solid"><p>' . nl2br(htmlspecialchars($feed->content)) . '</p></span>';
 		if($feed->attached_file != ""){
 			echo '<span style="border-bottom: 1px #ddd solid">' . $feed->attached_file . '</span>';
 		}else {
@@ -103,35 +111,73 @@ if($msg == ""){
 	jQuery('.editpost').click(function() {
 		var _id = jQuery(this).attr('value');
 		// jQuery(this).html()
-		console.log(_id);
-		jQuery('.optionbutts-'+ _id).slideToggle();
+		var change = jQuery(this).attr('data-change');
+		if(change == "non-edit-mode"){
+			jQuery(this).html('Edit');
+		}else {
+			jQuery(this).html('Cancel edit');
+		}
+
+		console.log(_id + " ng editpost");
+		//jQuery('.optionbutts-'+ _id).slideToggle();
 		jQuery('.postfeedcontent'+ _id).slideToggle();
 		jQuery('.hidedit'+ _id).slideToggle();
 
+
+
 	});
 
-	jQuery('#cancelBtn').click(function() {
-		var id = jQuery(this).attr('data-id');
-		console.log(id);
-		jQuery('.optionbutts-'+ id).slideToggle();
-		jQuery('.postfeedcontent'+ id).slideToggle();
-		jQuery('.hidedit'+ id).slideToggle();
-	});
+	// jQuery('#cancelBtn').click(function() {
+	// 	var id = jQuery(this).attr('data-id');
+	// 	console.log(id + " ng cancelBtn");
+	// 	jQuery('.optionbutts-'+ id).slideToggle();
+	// 	jQuery('.postfeedcontent'+ id).slideToggle();
+	// 	jQuery('.hidedit'+ id).slideToggle();
+	// });
 
-	jQuery('#updateBtn').click(function() {
-		var _id = jQuery(this).attr('value');
-		var cont = jQuery('textarea[name=contenttext]').val();
-		console.log(cont);
-		if(confirm('Are you sure you want to update this?') == true){
-			jQuery.get('<?php echo base_url(); ?>feeds/updatePost', { editid : _id, contenttext : cont }, function(data) {
-				console.log(data);
-				window.location.href ="<?php echo base_url(); ?>feeds";
-			});
+	function submitPostcheck() {
+		var form = jQuery('.formposter');
+		var _postcontent = form.find('textarea').val();
+
+		if(_postcontent == ""){
+			form.find('textarea').attr('style', 'border: 1px red solid; width: 100%; height: 20%;');
+			form.find('textarea').attr('placeholder', "This can't be blank.");
+			return false;
+			
+
 		}else {
-			console.log('cont');
-
-				window.location.href ="<?php echo base_url(); ?>feeds";
+			return true;
 		}
+	}
+
+	function updatefeed() {
+
+		jQuery('#updateBtn').click(function() {
+			var _id = jQuery(this).attr('value');
+			var cont = jQuery(this).parent().parent().find('textarea[name=contenttext]').val();
+			//var cot = jQuery(this).
+			console.log(cont);
+
+			//if(cont != ""){
+				if(confirm('Are you sure you want to update this?') == true){
+					jQuery.post('<?php echo base_url(); ?>feeds/updatePost', { editid : _id, contenttext : cont }, function(data) {
+						console.log(data);
+						window.location.href ="<?php echo base_url(); ?>feeds";
+					});
+				}else {
+					console.log(data);
+						return false;
+						//window.location.href ="<?php echo base_url(); ?>feeds";
+				}
+			// }else {
+			// 	jQuery(this).parent().parent().find('textarea[name=contenttext]').attr('style', 'border: 1px red solid');
+			// 	jQuery(this).parent().parent().find('textarea[name=contenttext]').attr('placholder', "This can't be blank.");
+			// }
+		});
+	}
+
+	jQuery(document).ready(function() {
+		updatefeed();
 	});
 
 	jQuery('.deletepost').click(function() {
@@ -144,7 +190,7 @@ if($msg == ""){
 		if(confirm("Are you sure to delete this post?")){
 			jQuery.get('<?php echo base_url(); ?>feeds/deletePost', { id : _id }, function(data) {
 				if(data == ""){
-					window.location.href = "feeds/";				
+					window.location.href = "<?php echo base_url(); ?>feeds/";				
 				}else {
 					jQuery('.msg').html();
 				}

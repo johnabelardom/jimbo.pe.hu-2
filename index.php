@@ -190,6 +190,34 @@ if (defined('ENVIRONMENT'))
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
 
+
+
+
+//=====================================================SET $GLOBALS FOR WEB
+	// $web = array(
+		// $GLOBALS['base_url'] = 'http://jimbo.pe.hu/';
+		// $GLOBALS['dbhostname'] = 'mysql.hostinger.ph';
+		// $GLOBALS['dbusername'] = 'u485697276_jimbo';
+		// $GLOBALS['dbpassword'] = 'merjimbo';
+		// $GLOBALS['dbname'] ='u485697276_dbsys';
+
+	// );
+//==========================================================SET $GLOBALS FOR LOCAL
+	// $local = array(
+		 $GLOBALS['base_url'] = 'http://jimbo';
+		 $GLOBALS['dbhostname'] = 'localhost';
+		 $GLOBALS['dbusername'] = 'root';
+		 $GLOBALS['dbpassword'] = '';
+		 $GLOBALS['dbname'] = 'jimbo';
+	// );
+//=====================================================
+
+
+
+
+
+
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

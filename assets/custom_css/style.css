@@ -131,3 +131,8 @@ a {
 	justify-content: center;
 }
 
+textarea {
+	resize:vertical; 
+	max-height:300px; 
+	min-height:200px;
+}

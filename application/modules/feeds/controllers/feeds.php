@@ -27,7 +27,7 @@ function index() {
         }
         $data['page_title'] = "News Feed";
         $this->load->view('commons/header', $data);
-        $this->load->view('commons/sidebar');
+        //$this->load->view('commons/sidebar');
         $this->load->view('news_feed');
         $this->load->view('commons/footer');
     }else {
@@ -70,15 +70,23 @@ function deletePost() {
 }
 
 function updatePost() {
-    $editID = $_GET['editid'];
-    $contentup = $_GET['contenttext'];
-
+    // $editID = $this->input->post('editid');//$_GET['editid'];
+    // $contentup = $this->input->post('contenttext');//$_GET['contenttext'];
+    $editID = $_POST['editid'];
+    $contentUP = $_POST['contenttext'];
+    $ownerID = $this->session->userdata('user_id');
+    var_dump($editID . " + " . $contentUP);
+    //exit();
     //$data = array('content', $contentup);
     try {
         //$this->_update($editID, $data);
-        $this->_custom_query("UPDATE feeds SET content = '$contentup' WHERE owner_id = $editID");      
+        $sql = "UPDATE feeds SET content = '$contentUP' WHERE id = $editID AND owner_id = $ownerID";
+        // var_dump($sql);
+        // exit();
+        $this->_custom_query($sql);      
        // redirect('feeds');
-        echo "SUCCESS";
+        //echo "SUCCESS";
+        //redirect('feeds');
     }catch (Exception $e) {
         echo $e->getMessage();
     }
