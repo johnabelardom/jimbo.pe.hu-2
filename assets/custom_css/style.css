@@ -1,3 +1,4 @@
+@import url('footer.css');
 * {
 	font-family: Century Gothic;
 }
@@ -9,7 +10,6 @@ body {
 
 a {
 	text-decoration: none;
-
 }
 
 .brand-name {
@@ -34,16 +34,37 @@ a {
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
-	margin-top: 20px;
+	margin-top: 15px;
+	margin-right: 10px;
 }
 
 .nav-container {
 	justify-content: center;
 	text-align: center;
+	max-width: 100%
+}
+
+.header {
+	top: 0;
 }
 
 .header-off, .header-on {
 	background-color: #333;
+/*	position: absolute;
+	width: 100%;
+	margin-bottom: 100px;*/
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  /*font-size: 72px;*/
+  /*line-height: 108px;*/
+  /*height: 108px;
+  /*background: #335C7D;*/
+  color: #fff;
+  font-family: 'PT Sans', sans-serif;
+  max-width: 100%;
+  top: 0;
+  z-index: 9999;
 }
 
 .navlist {
@@ -55,7 +76,6 @@ a {
 .nav-butts {
 	display: block;
 
-	border: 1px solid;
 }
 
 .nav-butts li {
@@ -63,12 +83,12 @@ a {
 }
 
 .nav-butts a {
-	color: black;
+	color: white;
 }
 
 .navmenu {
-	background-color: #eee;
-	border-radius: 5px;
+	background-color: rgba(52, 152, 219,.7);
+	border-radius: 2px;
 	right: 0;
 }
 
@@ -79,21 +99,24 @@ a {
 .section-off {
 	display: flex;
 	justify-content: center;
+	max-width: 100%;
+}
+
+.section {
+	/*margin-top: 5%;*/
 }
 
 .login-form-div {
 	text-align: center;
 	border: 1px #333 solid;
-	margin-top: 5%;
-	margin-bottom: 5%;
-	dasdisplay: flex;
-	wasdidth: 15%;
+	margin-top: 50px;
 	padding: 3%;
 }
 
 .login-form {
 	justify-content: center;
 	margin: 0 auto;
+	max-width: 100%
 }
 
 .loginBtn {
@@ -114,13 +137,17 @@ a {
 	color: white;
 	background-color: #444;
 	text-align: center;
-	height: 100px;
+	height: 107px;
+	max-width: 100%;
+	margin-top: 0;
 }
 
 .primary-content {
-	justify-content: center;
-	display: inline;
+	
+	display: block;
 	padding: 5%;
+	max-width: 100%;
+	margin: auto;
 }
 
 .afeed {
@@ -131,8 +158,43 @@ a {
 	justify-content: center;
 }
 
+input[type=button] {
+	background-color: #3498db;
+}
+
 textarea {
 	resize:vertical; 
 	max-height:300px; 
 	min-height:200px;
+	padding: 20px;
+	font-size: 15px;
+}
+
+.funcBTNS {
+	background-color: #2ecc71;
+	border: none;
+	color: white;
+	padding: 5px;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.funcBTNSX {
+	background-color: #e74c3c;
+	border: none;
+	color: white;
+	padding: 5px;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.dateformatstyle {
+	color: #888;
+	font-size: 13;
+}
+
+.profileLink {
+	color: #2980b9;
 }

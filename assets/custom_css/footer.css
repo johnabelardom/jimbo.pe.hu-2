@@ -1,0 +1,13 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.section {
+  padding: 20px;
+  min-height: calc(100vh - 147px);
+  margin: 0 auto;
+}
+.footer {
+  height: 50px;
+  margin-top: -50px;
+}

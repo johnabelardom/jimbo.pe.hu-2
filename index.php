@@ -193,7 +193,7 @@ if (defined('ENVIRONMENT'))
 
 
 
-//=====================================================SET $GLOBALS FOR WEB
+//=====================================================SET $GLOBALS FOR jimbo.pe.hu
 	// $web = array(
 		// $GLOBALS['base_url'] = 'http://jimbo.pe.hu/';
 		// $GLOBALS['dbhostname'] = 'mysql.hostinger.ph';
@@ -209,6 +209,15 @@ if (defined('ENVIRONMENT'))
 		 $GLOBALS['dbusername'] = 'root';
 		 $GLOBALS['dbpassword'] = '';
 		 $GLOBALS['dbname'] = 'jimbo';
+	// );
+//=====================================================
+//==========================================================SET $GLOBALS FOR jimbo.pcriot.com
+	// $local = array(
+		 // $GLOBALS['base_url'] = 'http://jimbo.pcriot.com';
+		 // $GLOBALS['dbhostname'] = 'localhost';
+		 // $GLOBALS['dbusername'] = 'jimbopcr_jimbo';
+		 // $GLOBALS['dbpassword'] = 'jimbo12399';
+		 // $GLOBALS['dbname'] = 'jimbopcr_jimbo';
 	// );
 //=====================================================
 

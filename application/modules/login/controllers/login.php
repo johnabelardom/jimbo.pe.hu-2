@@ -22,7 +22,7 @@ function index() {
 
 function loginuser() {
     $email = $_GET['email'];
-    $pass = $_GET['pass'];
+    $pass = md5($_GET['pass']);
     $sql = "SELECT * FROM accounts WHERE email = '$email' AND password = '$pass'";
     
 

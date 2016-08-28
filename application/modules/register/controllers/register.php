@@ -2,60 +2,83 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Upload extends MX_Controller 
+class Register extends MX_Controller 
 {
 
-
 function __construct() {
-    parent::__construct();
-
-
-
+parent::__construct();
 }
 
 
 function index() {
 
     if($this->session->userdata('user_id') != NULL){
-        $uid = $this->session->userdata('user_id');
         if($this->session->userdata('role') == 'admin'){
-            try{
-             
-            } catch (Exception $e) {
-                echo '[Problem with retrieving datas]. ' . $e->getMessage();
-            }
-            $data['page_title'] = "Files";
+            //var_dump($this->session->userdata('user_id'));
+            $data['page_title'] = "Register An Account";
             $this->load->view('commons/header', $data);
-            $this->load->view('commons/sidebar');
-            $this->load->view('uploads');
+            $this->load->view('registerform');
             $this->load->view('commons/footer');
         }else {
-            $data['page_title'] = "Files";
-            $data['messageC'] = 'You have no rights for doing this. You are not yet available to upload files';
-            $this->load->view('commons/header', $data);
+            $this->load->view('commons/header');
+            echo '<br><br><br><br><p>You are not an Admin</p>';
             $this->load->view('commons/footer');
-
         }
     }else {
-        echo '<p>You are not Logged In</p>';
+        $data['page_title'] = 'Register An Account';
+        $this->load->view('commons/header-off', $data);
+        echo '<br><br><br><br><br><br><p>You are not Logged in.</p>';
+        $this->load->view('commons/footer');
     }
-
 }
 
-function uploadfile(){
+function registerAccount() {
 
-    $this->load->model('mdl_perfectcontroller');
-    // var_dump($this->input->post('upload'));
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
     // exit();
-    if($this->input->post('upload') == "Upload"){
-
-        $this->mdl_perfectcontroller->do_upload();
-        redirect('upload');
-        
-    }else {
-        echo 'No file chosen';
+    if($this->session->userdata('role') != 'admin') {
+        $this->load->view('commons/header');
+        echo '<br><br><br><br><p>Access Forbidden. For admin rights only</p>';
+        $this->load->view('commons/footer');
     }
+    $phonenumber = "";
+    if(isset($_POST['phone'])){
+        $phonenumber = $_POST['prefixnumber'] . $_POST['phone'];
+    }else {
+        $phonenumber = "N/A";
+    }
+
+    $data['fname'] = $_POST['fname'];
+    $data['lname'] = $_POST['lname'];
+    $data['age'] = $_POST['age'];
+    $data['birthdate'] = date('Y-m-d', strtotime($_POST['birthdate']));
+    $data['username'] = $_POST['username'];
+    $data['email'] = $_POST['email'];
+    $data['password'] = md5($_POST['password']);
+    $data['phone'] = $phonenumber;
+    $data['role'] = $_POST['role'];
+    $base_url = base_url();
+    $succ_message = "Registration Success";
+    $fail_message = "[ Registration Failed ].";
+    try{
+        $this->_insert($data);
+        $data['messageC'] = $succ_message;
+        $this->load->view('commons/header', $data);
+        $this->load->view('commons/footer');
+    }catch(Exception $e) {
+        $data['messageC'] = $fail_message . $e->getMessage();
+        $this->load->view('commons/header', $data);
+        $this->load->view('commons/footer');
+    }
+
+
 }
+
+
+
+
 
 
 function get($order_by)

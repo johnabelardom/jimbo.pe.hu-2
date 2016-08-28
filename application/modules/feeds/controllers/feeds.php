@@ -12,7 +12,15 @@ function __construct() {
 function index() {
     if($this->session->userdata('user_id') != NULL){
         $uid = $this->session->userdata('user_id');
-        $sql = "SELECT * FROM feeds WHERE owner_id = $uid ORDER BY date_created DESC";
+        //use this script for displaying all the feeds by one owner only
+        //$sql = "SELECT * FROM feeds WHERE owner_id = $uid ORDER BY date_created DESC";
+
+        //use this script for displaying all the feeds
+        //$sql = "SELECT * FROM feeds ORDER BY date_created DESC";
+
+        //use this script for displaying all feeds with joined with two tables
+        $sql = "SELECT * FROM accounts INNER JOIN feeds ON accounts.id = feeds.owner_id ORDER BY feeds.date_created DESC";
+
         try{
             $feeds = $this->_custom_query($sql);
             $res = $feeds->result();
@@ -38,7 +46,7 @@ function index() {
 function postFeedcheck() {
     $ownerid = $this->session->userdata('user_id');
     $ownername = $this->session->userdata('fname') . ' ' . $this->session->userdata('lname');
-    $content = $_POST['content'];
+    $content = trim($_POST['content']);
     $file = $_POST['file'];
 
     if($content != ""){
@@ -46,7 +54,12 @@ function postFeedcheck() {
         try {
             $this->_insert($data);
             //echo "s_POSTuccess";
-            redirect('feeds'); 
+            if($_POST['from_place'] == 'feeds'){
+                redirect('feeds'); 
+            }
+            if($_POST['from_place'] == 'profile'){
+                redirect('profile');
+            }
         } catch (Exception $e) {
             echo $e->getMessage();
         }
