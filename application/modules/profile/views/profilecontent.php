@@ -71,7 +71,13 @@ if($msg == ""){
 				echo '<span style="border-bottom: 1px #ddd solid"><textarea name="contenttext" style="width: 100%; height: 18%;"' . 
 				'>' . htmlspecialchars($feed->content) . '</textarea></span><br>';
 				echo '<span style="border-bottom: 1px #ddd solid"><button type="submit" style="cursor: pointer; margin-right: 10px;" value="' . $feed->id . '" id="updateBtn" class="funcBTNS">Update</button></span>&nbsp;';
-				echo '<input type="hidden" name="from_place" value="profile">';		
+				//hidden 
+				echo '<input type="hidden" name="from_place" value="profile">';	
+				if(isset($_GET['identifier'])){
+					echo "<input type='hidden' name='identifier' value='" . $_GET['identifier'] . "'";
+				}else {
+					echo "<input type='hidden' name='identifier' value=''>";
+				}
 			echo form_close();
 			echo '</div>';
 			
@@ -88,7 +94,7 @@ if($msg == ""){
 		<span style="border-bottom: 1px #ddd solid"><strong><a class="profileLink" href="<?php echo base_url(); ?>profile/person?identifier=<?= $username ?>"><?= $feed->ownername ?></a></strong></span><br>
 		<?php
 		echo '<span style="border-bottom: 1px #ddd solid" class="dateformatstyle">' . $dateformat . '</span>';
-		echo '<span style="border: 1px #ddd solid"><p style="margin: 2%;">' . nl2br(htmlspecialchars($feed->content)) . '</p></span>';
+		echo '<span style="border: 1px #ddd solid"><div style="margin: 2%; overflow: auto;">' . nl2br(htmlspecialchars($feed->content)) . '</div></span>';
 		if($feed->attached_file != ""){
 			echo '<span style="border-bottom: 1px #ddd solid">' . $feed->attached_file . '</span>';
 		}else {
@@ -174,14 +180,15 @@ if($msg == ""){
 		jQuery('#updateBtn').click(function() {
 			var _id = jQuery(this).attr('value');
 			var cont = jQuery(this).parent().parent().find('textarea[name=contenttext]').val();
+			var _identifier = jQuery(this).parent().parent().find('input[name=identifier]').val();
 			//var cot = jQuery(this).
 			console.log(cont);
 
 			//if(cont != ""){
 				if(confirm('Are you sure you want to update this?') == true){
 					jQuery.post('<?php echo base_url(); ?>feeds/updatePost', { editid : _id, contenttext : cont }, function(data) {
-						console.log(data);
-						window.location.href ="<?php echo base_url(); ?>feeds";
+						//console.log(data);
+						window.location.href ="<?php echo base_url(); ?>profile/person?identifier=" + _identifier;
 					});
 				}else {
 					console.log(data);
@@ -201,15 +208,19 @@ if($msg == ""){
 
 	jQuery('.deletepost').click(function() {
 		var _id = jQuery(this).attr('value');
+		var _identifier = jQuery(this).parent().find('input[name=identifier]').val();
 		// jQuery(this).html()
 		console.log(_id);
 
 		//var confirm = confirm("Are you sure to delete this post?");
-
+		if(_identifier == null) {
+			_identifier = "";
+		}
 		if(confirm("Are you sure to delete this post?")){
 			jQuery.get('<?php echo base_url(); ?>feeds/deletePost', { id : _id }, function(data) {
 				if(data == ""){
-					window.location.href = "<?php echo base_url(); ?>feeds/";				
+
+					window.location.href = "<?php echo base_url(); ?>profile/person?identifier=" +  _identifier;				
 				}else {
 					jQuery('.msg').html();
 				}

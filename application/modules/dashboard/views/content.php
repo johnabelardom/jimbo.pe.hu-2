@@ -1246,6 +1246,8 @@ body {
   transform: scale(1);
 }
 
+
+
 @keyframes display {
   from {
     -webkit-transform: scale(0);
@@ -1293,8 +1295,8 @@ body {
 		<div class="primary-content">
 
 			<!-- <p>THIS THE DASHBOARD</p>
- -->			<div class="dashboard display-animation" style="margin: 0 auto; width: 1130px;">
-  <a class="tile tile-lg tile-pink ripple-effect" href="http://www.w3schools.com/css/default.asp" target="_blank">
+ -->			<div class="dashboard display-animation" style="margin: 0 auto; width: 1130px; max-width: 100%;">
+  <a class="tile tile-lg tile-pink ripple-effect" href="http://www.w3schools.com/html/default.asp" target="_blank">
     <span class="content-wrapper">
       <span class="tile-content">
         <span class="tile-img" style="background-image: url(http://www.google.com/design/images/google_spec.png);"></span>
@@ -1304,7 +1306,7 @@ body {
       </span>      
     </span>
   </a>
-  <a class="tile tile-lg tile-sqr tile-purple ripple-effect" href="http://www.w3schools.com/html/default.asp" target="_blank">
+  <a class="tile tile-lg tile-sqr tile-purple ripple-effect" href="http://www.w3schools.com/css/default.asp" target="_blank">
     <span class="content-wrapper">
       <span class="tile-content">
         <span class="tile-img" style="background-image: url(http://www.google.com/design/images/materialreel.png);"></span>
@@ -1374,8 +1376,8 @@ body {
       </span>      
     </span>
   </a>
-  <a class="tile tile-lg tile-light-green ripple-effect" href="#">
-    <span class="content-wrapper">
+  <a class="tile tile-lg tile-light-green ripple-effect" href="#a">
+    <span id="a" class="content-wrapper">
       <span class="tile-content">
         <span class="tile-img tile-img-bg" style="background-image: url(http://www.google.com/design/images/webdesigner.png);"></span>
         <span class="tile-holder tile-holder-sm">

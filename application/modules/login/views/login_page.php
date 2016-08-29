@@ -2,11 +2,11 @@
 
 		<div id="divlogin" class="login-form-div">
 			
-			<h3>Login</h3>
+			<h3>Access what you want.</h3>
 			<form action="" method=post class="login-form" style="padding: 10%;">
 				
 				<div id="ms" class="msg" style="display: none;"></div> 
-				<input type="email" class="inputs email" name="email" placeholder="Username"><br><br>
+				<input type="email" class="inputs email" name="email" placeholder="Email or Username"><br><br>
 				<input type="password" class="inputs pass" name="password" placeholder="Password"><br><br>
 				<a type="button" href="#divlogin" class="glyphicon-log-in funcBTNS" value="Login">Login</a>
 				<span class="glyphicon-lock"></span>

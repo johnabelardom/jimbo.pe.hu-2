@@ -15,7 +15,7 @@ function __construct() {
 function do_upload() {
 
     $config = array(
-        'allowed_types' => 'jpeg|jpg|gif|png|docx|doc|ppt|pptx|rar|zip',
+        'allowed_types' => 'jpeg|jpg|gif|png|docx|doc|ppt|pptx|rar|zip|txt',
         'upload_path' => $this->uploadpath,
         'max_size' => 2000
     );

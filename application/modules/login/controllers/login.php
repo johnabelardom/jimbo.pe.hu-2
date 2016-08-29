@@ -23,7 +23,7 @@ function index() {
 function loginuser() {
     $email = $_GET['email'];
     $pass = md5($_GET['pass']);
-    $sql = "SELECT * FROM accounts WHERE email = '$email' AND password = '$pass'";
+    $sql = "SELECT * FROM accounts WHERE email = '$email' OR username = '$email' AND password = '$pass'";
     
 
     if($data = $this->_custom_query($sql)) {

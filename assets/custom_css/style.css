@@ -44,12 +44,17 @@ a {
 	max-width: 100%
 }
 
-.header {
+.header-on {
 	top: 0;
+	background-color: #009688;
+}
+
+.header-off {
+	background-color: #333;
 }
 
 .header-off, .header-on {
-	background-color: #333;
+	/*background-color: #333;*/
 /*	position: absolute;
 	width: 100%;
 	margin-bottom: 100px;*/
@@ -108,9 +113,10 @@ a {
 
 .login-form-div {
 	text-align: center;
-	border: 1px #333 solid;
+	border: 1px #388ff4 solid;
 	margin-top: 50px;
 	padding: 3%;
+	border-radius: 3px;
 }
 
 .login-form {
@@ -128,7 +134,8 @@ a {
 .inputs {
 	padding: 5px;
 	font-size: 15px;
-	border: .5px #000 solid;
+	border: .5px #f6aa00 solid;
+	border-radius: 3px;
 }
 
 .footer {

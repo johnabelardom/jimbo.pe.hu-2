@@ -1,0 +1,79 @@
+Changelog:
+2015 Jan 1-8 Version 9.9.8.7
+-Updated UI to fit nav
+-Updated UI issues
+-Updated report missing info
+-Updated edit diagnosis form
+
+Changelog:
+2015 Dec 17-27 Version 9.9.7.2
+-Updated Drugs Dispensed and AANI Dispensed Report
+-Added Generate Report Button to View Owner Info
+-Added Generate Report Form filter
+
+Changelog:
+2015 October 19-26 Version 9.9.6.3
+-fixed mdb bugs, signs search not capturing signs to keyword input[hidden]
+
+Changelog:
+2015 October 19-26 Version 9.9.6.0 - 2
+-updated research footprint as per dec3 email - fixed bugs
+
+Changelog:
+2015 October 19-26 Version 9.9.4
+-Updated Research Footprint
+
+Changelog:
+2015 October 19-26 Version 9.9.3.7
+-Fixed edit diagnosis bugs storing updated info for variables "reason for calling, additional test details, additional therapy details"
+-Added Filter to MDB link to diagnosis page
+
+Changelog:
+2015 October 9-12 Version 9.9.3.6
+-Fixed calling service form savecaller function on firefox and safari
+-Started working on pdf print (printing on ipad without header and footer)
+-Added dompdf library 
+
+Changelog:
+2015 October 7 - Version 9.9.3.5
+-Updated view info (added emergency vet)
+-Fixed bug on assessment capture via diagnosis form
+-Tested bug on keyword capture via diagnosis form
+-Tested lookup after entering caller and patient info on calling service form
+
+Changelog:
+2015 October 5 - Version 9.9.3.4
+-Updated Merck URL query
+-Updated "Advice from Masters layout", single column instead of 2 columns
+-Updated dashboard.css added margin-bottom style to reference class
+
+Changelog:
+2015 October 1-4 - Version 9.9.3.3
+-Fixed bug on wizard through admin
+
+Changelog:
+2015 October 1-4 - Version 9.9.3.2
+-Updated Users privileges
+-Fixed bug on users and signs search autocomplete function
+-Updated Wizard text to "Advice from Masters"
+-Added "Advice from Masters to Admin"
+-Updated diagnosis page for Technician's Access
+-Revised documentation to include updated user privileges
+
+
+Changelog:
+2015 September 26-27 - Version 9.9.3.1
+-Added Wizard page to view and search other references based on the disease a keyword
+
+Changelog:
+2015 September 21 - Version 9.9.3
+
+-Updated Spanish Translation
+-Added admin permission to view disease information
+
+
+Changelog:
+2015 September 15th - Version 9.9.2
+
+- Fixed Examinations and Therapies Columns
+- Added Spanish and Italian Languages to Invoice and Edit Pricing Form

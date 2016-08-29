@@ -51,46 +51,68 @@ function index() {
 }
 
 function person(){
-    $username = $_GET['identifier'];
-    //if($this->session->userdata('user_id') != NULL){
-        //$fullname = $this->session->userdata('fname') . " " . $this->session->userdata('lname');
-        //$default['page_title'] = $fullname;
 
-        //use this variable and edit the value if you want some message
-        //$data['messageC'] = "Not yet available contact admin for this. <a target='_blank' href='http://www.facebook.com/johnabelardom/'>Click here.</a>";
-        $query = $this->get_where_custom('username', $username);
-        $profile = $query->result();
-        $default['profile'] = $profile;
+    if(! isset($_GET['identifier'])) {
+        $_GET['identifier'] = "";
+    }
 
-        $sql = "SELECT * FROM accounts INNER JOIN feeds ON accounts.id = feeds.owner_id WHERE username = '$username' ORDER BY feeds.date_created DESC";
+    if($_GET['identifier'] != "") {
+        // $username = trim($_GET['identifier'], "' % , = & ?" . '"');
+        $uname = str_replace(' ', '-', $_GET['identifier']);
+        $username = preg_replace('/[^A-Za-z0-9\-]/', '', $uname);
+        // var_dump($username);
+        // exit();
+        // var_dump($username);
+        // exit();
+        //if($this->session->userdata('user_id') != NULL){
+            //$fullname = $this->session->userdata('fname') . " " . $this->session->userdata('lname');
+            //$default['page_title'] = $fullname;
 
-        try{
-            $feeds = $this->_custom_query($sql);
-            $res = $feeds->result();
-            $default['msg'] = "";
-            if($res == NULL){
-                $default['msg'] = "<p>No recent posts yet.</p>";
-            } else {
-                $default['feeds'] = $res;
-                $default['page_title'] = $res[0]->ownername;
+            //use this variable and edit the value if you want some message
+            //$data['messageC'] = "Not yet available contact admin for this. <a target='_blank' href='http://www.facebook.com/johnabelardom/'>Click here.</a>";
+            $query = $this->get_where_custom('username', $username);
+            $profile = $query->result();
+            $default['profile'] = $profile;
+
+            $sql = "SELECT * FROM accounts INNER JOIN feeds ON accounts.id = feeds.owner_id WHERE username = '" . $username . "' ORDER BY feeds.date_created DESC";
+
+            try{
+                // error_reporting(0);
+                $feeds = $this->_custom_query($sql);
+                $res = $feeds->result();
+                // var_dump($res);
+                // exit();
+                $default['msg'] = "";
+                if($res == NULL){
+                    redirect('profile');
+                    //$default['msg'] = "<p>No recent posts yet.</p>";
+                } else {
+                    if($res[0]->content == NULL){
+                        $default['msg'] = "<p>No recent posts yet.</p>";
+                    }
+                    $default['feeds'] = $res;
+                    $default['page_title'] = $res[0]->ownername;
+                }
+            } catch (Exception $e) {
+                echo '[ Problem with retrieving datas ]. ' . $e->getMessage();
             }
-        } catch (Exception $e) {
-            echo '[ Problem with retrieving datas ]. ' . $e->getMessage();
-        }
-        if($username == ""){
-            $this->load->view('commons/header', $default);
+            if($username == ""){
+                $this->load->view('commons/header', $default);
+            }else {
+                // exit($username);
+                $this->load->view('commons/header', $default);
+                $this->load->view('profilecontent');
+                $this->load->view('commons/footer');
+            }
+        // }else {
+        //     $message['page_title'] = 'Jimbo';
+        //     $message['messageC'] = "You are not Logged In.";
+        //     $this->load->view('commons/header-off', $message);
+        //     $this->load->view('commons/footer');
+        // }
         }else {
-            // exit($username);
-            $this->load->view('commons/header', $default);
-            $this->load->view('profilecontent');
-            $this->load->view('commons/footer');
+            $this->index();
         }
-    // }else {
-    //     $message['page_title'] = 'Jimbo';
-    //     $message['messageC'] = "You are not Logged In.";
-    //     $this->load->view('commons/header-off', $message);
-    //     $this->load->view('commons/footer');
-    // }
 }
 
 function get($order_by)

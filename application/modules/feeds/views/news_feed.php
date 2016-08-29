@@ -70,7 +70,7 @@ if($msg == ""){
 		<span style="border-bottom: 1px #ddd solid"><strong><a class="profileLink" href="<?php echo base_url(); ?>profile/person?identifier=<?= $feed->username ?>"><?= $feed->ownername ?></a></strong></span><br>
 		<?php
 		echo '<span style="border-bottom: 1px #ddd solid" class="dateformatstyle">' . $dateformat . '</span>';
-		echo '<span style="border: 1px #ddd solid"><p style="margin: 2%;">' . nl2br(htmlspecialchars($feed->content)) . '</p></span>';
+		echo '<span style="border: 1px #ddd solid"><div style="margin: 2%; overflow: auto;">' . nl2br(htmlspecialchars($feed->content)) . '</div></span>';
 		if($feed->attached_file != ""){
 			echo '<span style="border-bottom: 1px #ddd solid">' . $feed->attached_file . '</span>';
 		}else {
