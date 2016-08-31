@@ -2,56 +2,28 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Dashboard extends MX_Controller 
+class Chat extends MX_Controller 
 {
 
 function __construct() {
 parent::__construct();
 }
 
+
 function index() {
-   
-    if($this->session->userdata('user_id') != NULL){
-        //var_dump($this->session->userdata('user_id'));
-        $data['page_title'] = "Dashboard";
-        $this->load->view('commons/header', $data);
-        $this->load->view('content');
-        $this->load->view('commons/footer');
-    }else {
-        echo '<p>You are not Logged In</p>';
-    }
-}
 
-function logoutuser() {
+    $sql = "SELECT * FROM accounts";
 
-    if($this->session->userdata('user_id') != NULL){
-        $this->session->unset_userdata('user_id');
-        redirect('login');
-    }else {
-        echo '<p>You are not Logged In</p>';
-    }    
+    $query = $this->_custom_query($sql);
+    $data['query'] = $query->result();
+    // var_dump($data);
+    // exit();
+    $data['page_title'] = "Message People";
 
-}
-
-function privacypolicy() {
-    $data['page_title'] = "Privacy Policy";
-
-    if($this->session->userdata('user_id') != NULL) {
-        $this->load->view('commons/header', $data);
-    }else {
-        $this->load->view('commons/header-off', $data);
-    }
-
-    $this->load->view('docs/privacypolicy');
+    $this->load->view('commons/header', $data);
+    $this->load->view('pm_people');
     $this->load->view('commons/footer');
-
 }
-
-
-
-
-
-
 
 function get($order_by)
 {

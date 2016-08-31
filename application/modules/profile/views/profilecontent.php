@@ -5,7 +5,7 @@ $prof = $profile[0];
 ?>
 <div class="primary-content">
 
-	<div class="row1" style="margin: 0 auto; max-width: 100%; justify-content: center; text-align: center;">
+	<div class="row1" style="margin: 0 auto;margin-top: 20px; max-width: 100%; justify-content: center; text-align: center;">
 		<div class="profpic-div">
 			<img src="" width="200px" height="200px" alt="Not yet available">
 		</div>
@@ -91,7 +91,7 @@ if($msg == ""){
 
 		echo '<div class="postfeedcontent' . $feed->id . '" style="border: 2px #ddd solid">';	
 		?>
-		<span style="border-bottom: 1px #ddd solid"><strong><a class="profileLink" href="<?php echo base_url(); ?>profile/person?identifier=<?= $username ?>"><?= $feed->ownername ?></a></strong></span><br>
+		<span style="border-bottom: 1px #ddd solid"><strong><a class="profileLink" href="<?php echo base_url(); ?>profile/person?identifier=<?= $feed->username ?>"><?= $feed->ownername ?></a></strong></span><br>
 		<?php
 		echo '<span style="border-bottom: 1px #ddd solid" class="dateformatstyle">' . $dateformat . '</span>';
 		echo '<span style="border: 1px #ddd solid"><div style="margin: 2%; overflow: auto;">' . nl2br(htmlspecialchars($feed->content)) . '</div></span>';

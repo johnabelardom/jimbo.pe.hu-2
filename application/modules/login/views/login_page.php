@@ -2,7 +2,7 @@
 
 		<div id="divlogin" class="login-form-div">
 			
-			<h3>Access what you want.</h3>
+			<h3>Let's make it free.</h3>
 			<form action="" method=post class="login-form" style="padding: 10%;">
 				
 				<div id="ms" class="msg" style="display: none;"></div> 

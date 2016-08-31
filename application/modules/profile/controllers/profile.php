@@ -100,7 +100,11 @@ function person(){
                 $this->load->view('commons/header', $default);
             }else {
                 // exit($username);
-                $this->load->view('commons/header', $default);
+                if($this->session->userdata('username') != ""){
+                    $this->load->view('commons/header', $default);
+                }else {
+                    $this->load->view('commons/header-off', $default);
+                }
                 $this->load->view('profilecontent');
                 $this->load->view('commons/footer');
             }

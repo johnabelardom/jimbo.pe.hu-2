@@ -47,8 +47,11 @@ function postFeedcheck() {
     $ownerid = $this->session->userdata('user_id');
     $ownername = $this->session->userdata('fname') . ' ' . $this->session->userdata('lname');
     $content = trim($_POST['content']);
-    $file = $_POST['file'];
-
+    if(isset($_POST['file'])){
+       $file = $_POST['file'];
+    }else {
+        $file = "";
+    }
     if($content != ""){
         $data = array('owner_id' => $ownerid, 'ownername' => $ownername, 'content' => $content, 'attached_file' => $file);
         try {

@@ -7,6 +7,7 @@
 
 <!-- <link href="<?php echo base_url();?>assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- <link href="<?php echo base_url();?>assets/bootstrap/dist/css/bootstrap.css" rel="stylesheet"> -->
+<link href="<?php echo base_url(); ?>assets/favicon/logo.png" type="image/png" rel="icon">
 
 <link href="<?php echo base_url(); ?>assets/custom_css/style.css" rel="stylesheet">
 <script src="<?php echo base_url();?>assets/jquery/jquery.min.js"></script>
@@ -27,7 +28,7 @@
 	
 	<header class="header-off">
 		<div class="nav-container">
-			<a class="brand-name bn-off" href="login">Jimbo</a>
+			<a class="brand-name bn-off" href="<?php echo base_url(); ?>login">Jimbo</a>
 			
 		</div>
 
