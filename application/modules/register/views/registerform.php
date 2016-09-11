@@ -145,13 +145,13 @@
 		}
 	}
 
-	jQuery('.phonenumberdecline input[type=checkbox]').change(function() {
-		if(jQuery(this).val() == "false"){
-			jQuery(this).val('true');
-		}else {
-			jQuery(this).val('false');
-		}
-	});
+	// jQuery('.phonenumberdecline input[type=checkbox]').change(function() {
+	// 	if(jQuery(this).val() == "false"){
+	// 		jQuery(this).val('true');
+	// 	}else {
+	// 		jQuery(this).val('false');
+	// 	}
+	// });
 
 	jQuery('#confirmpassword').change(function() {
 		if(jQuery(this).val() != jQuery('#password').val()){
@@ -162,13 +162,17 @@
 	});
 
 	jQuery(document).ready(function() {
+
 		jQuery('.phonenumberdecline input[type=checkbox]').change(function() {
-			if(jQuery(this).val() == 'false') {
-				jQuery(this).parent().find('input[type=text]').removeAttr('disabled');
-				jQuery(this).val('');
-			}else {
-				jQuery(this).parent().find('input[type=text]').attr('disabled', 'disabled');
-				jQuery(this).val('');
+
+				_val = jQuery(this).attr('value');
+			if(_val == "false") {
+				jQuery(this).parent().find('input[type=text]').prop('disabled', true);
+				jQuery(this).val('true');
+			}
+			if(_val == "true") {
+				jQuery(this).parent().find('input[type=text]').prop('disabled', false );
+				jQuery(this).val('false');
 			}
 		});
 	});

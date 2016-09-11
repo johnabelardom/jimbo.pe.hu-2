@@ -6,7 +6,7 @@ class Profile extends MX_Controller
 {
 
 function __construct() {
-parent::__construct();
+    parent::__construct();
 }
 
 function index() {
@@ -23,8 +23,11 @@ function index() {
         $profile = $query->result();
         $default['profile'] = $profile;
 
-        $sql = "SELECT * FROM feeds WHERE owner_id = $oid ORDER BY date_created DESC";
+        //use this if something wrong with the second sql script
+        //$sql = "SELECT * FROM feeds WHERE owner_id = $oid ORDER BY date_created DESC";
 
+        //use this one if everything's fine
+        $sql ="SELECT * FROM accounts INNER JOIN feeds ON accounts.id = feeds.owner_id WHERE username = '" . $username . "' ORDER BY feeds.date_created DESC";
         try{
             $feeds = $this->_custom_query($sql);
             $res = $feeds->result();
@@ -50,57 +53,57 @@ function index() {
     }
 }
 
-function person(){
+function person() {
 
-    if(! isset($_GET['identifier'])) {
-        $_GET['identifier'] = "";
+
+    if(! isset($_GET['identifier']) || $_GET['identifier'] == "") {
+        if($this->session->userdata('user_id') > 0) {
+           $_GET['identifier'] = $this->session->userdata('username');
+        }else {
+            redirect('login');
+        }
+
     }
-
-    if($_GET['identifier'] != "") {
-        // $username = trim($_GET['identifier'], "' % , = & ?" . '"');
         $uname = str_replace(' ', '-', $_GET['identifier']);
         $username = preg_replace('/[^A-Za-z0-9\-]/', '', $uname);
-        // var_dump($username);
-        // exit();
-        // var_dump($username);
-        // exit();
-        //if($this->session->userdata('user_id') != NULL){
-            //$fullname = $this->session->userdata('fname') . " " . $this->session->userdata('lname');
-            //$default['page_title'] = $fullname;
 
-            //use this variable and edit the value if you want some message
-            //$data['messageC'] = "Not yet available contact admin for this. <a target='_blank' href='http://www.facebook.com/johnabelardom/'>Click here.</a>";
-            $query = $this->get_where_custom('username', $username);
-            $profile = $query->result();
-            $default['profile'] = $profile;
+            try {
+                $query = $this->get_where_custom('username', $username);
+                $profile = $query->result();
+                //var_dump($profile); exit();
+                if(sizeof($profile) > 0) {
+                    $default['profile'] = $profile;
+                }
+            } catch(Exception $e) {
+                $default['page_title'] = "Jimbo";
+                $default['msg'] += "<br><br>Unable to show profile. There's no $username registered here.";
+            }
 
+            
             $sql = "SELECT * FROM accounts INNER JOIN feeds ON accounts.id = feeds.owner_id WHERE username = '" . $username . "' ORDER BY feeds.date_created DESC";
-
             try{
                 // error_reporting(0);
                 $feeds = $this->_custom_query($sql);
                 $res = $feeds->result();
-                // var_dump($res);
-                // exit();
                 $default['msg'] = "";
-                if($res == NULL){
-                    redirect('profile');
-                    //$default['msg'] = "<p>No recent posts yet.</p>";
-                } else {
-                    if($res[0]->content == NULL){
+                    if($res == NULL){
                         $default['msg'] = "<p>No recent posts yet.</p>";
+                        $default['page_title'] = $username;
+                    }else{
+                        $default['page_title'] = $res[0]->ownername;
                     }
                     $default['feeds'] = $res;
-                    $default['page_title'] = $res[0]->ownername;
-                }
             } catch (Exception $e) {
-                echo '[ Problem with retrieving datas ]. ' . $e->getMessage();
+                $default['msg'] += '<br><br>[ Problem with retrieving datas ]. ' . $e->getMessage();
             }
+
             if($username == ""){
                 $this->load->view('commons/header', $default);
             }else {
-                // exit($username);
-                if($this->session->userdata('username') != ""){
+                // echo '<pre>';
+                // var_dump($this->session->userdata);
+                // exit();
+                if($this->session->userdata('user_id')){
                     $this->load->view('commons/header', $default);
                 }else {
                     $this->load->view('commons/header-off', $default);
@@ -108,16 +111,25 @@ function person(){
                 $this->load->view('profilecontent');
                 $this->load->view('commons/footer');
             }
-        // }else {
-        //     $message['page_title'] = 'Jimbo';
-        //     $message['messageC'] = "You are not Logged In.";
-        //     $this->load->view('commons/header-off', $message);
-        //     $this->load->view('commons/footer');
-        // }
-        }else {
-            $this->index();
-        }
 }
+
+function error_view($username) {
+    $uname = str_replace(' ', '-', $username);
+    $user = preg_replace('/[^A-Za-z0-9\-]/', '', $uname);
+    $error['page_title'] = "Jimbo";
+    $error['messageC'] = "<br><br>Unable to show profile. There's no '<i><b>" . $user . "</b></i>' registered here.";
+    $this->load->view('commons/header-off', $error);
+    $this->load->view('commons/footer');
+}
+
+function profile_setting() {
+
+    $this->load->view('commons/header');
+    $this->load->view('profilesetting');
+    $this->load->view('commons/footer');
+}
+
+
 
 function get($order_by)
 {

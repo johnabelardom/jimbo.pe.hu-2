@@ -16,6 +16,7 @@ function index() {
         $data['page_title'] = "Dashboard";
         $this->load->view('commons/header', $data);
         $this->load->view('content');
+        echo '<br><br><br>';
         $this->load->view('commons/footer');
     }else {
         echo '<p>You are not Logged In</p>';
@@ -25,10 +26,16 @@ function index() {
 function logoutuser() {
 
     if($this->session->userdata('user_id') != NULL){
+        $this->session->unset_userdata('username');
         $this->session->unset_userdata('user_id');
+
         redirect('login');
     }else {
-        echo '<p>You are not Logged In</p>';
+        $data['page_title'] = "Jimbo";
+        $data['messageC'] = '<p>You are not Logged In</p>';
+
+        $this->load->view('commons/header-off', $data);
+        $this->load->view('commons/footer');
     }    
 
 }

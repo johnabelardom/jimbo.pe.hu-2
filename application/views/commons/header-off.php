@@ -36,3 +36,13 @@
 
 
 	<section class="section section-off">
+	<?php 
+	// var_dump($messageC);
+	// exit();
+		if(isset($messageC)){
+	?>
+	
+	<span style="margin-top: 70px;"><?php echo $messageC; ?></span>
+	<?php
+		}
+	?>

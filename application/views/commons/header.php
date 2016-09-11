@@ -68,19 +68,19 @@ a.brand-name {
 			<div class="navmenu" style="position: fixed; float: right; display: none; box-shadow: 2px 2px 5px #333; padding: 0 25px;">
 				<nav class="nav">
 					<ul class="navlist">
-						<li class="nav-butts funcBTNS"><a href="<?php echo base_url();?>dashboard">Dashboard</a></li><br>
+						<a href="<?php echo base_url();?>dashboard"><li class="nav-butts funcBTNS">Dashboard</li></a><br>
 					<?php if($this->session->userdata('role') == 'admin') { ?>
 
-						<li class="nav-butts funcBTNS"><a href="<?php echo base_url();?>upload">Files</a></li><br>
+						<a href="<?php echo base_url();?>upload"><li class="nav-butts funcBTNS">Files</li></a><br>
 						
-						<li class="nav-butts funcBTNS"><a href="<?php echo base_url();?>register">Register</a></li><br>
+						<a href="<?php echo base_url();?>register"><li class="nav-butts funcBTNS">Register</li></a><br>
 
 					<?php } ?>
 
-						<li class="nav-butts funcBTNS"><a href="<?php echo base_url();?>feeds">News Feed</a></li><br>
-						<li class="nav-butts funcBTNS"><a href="<?php echo base_url();?>profile/">Profile</a></li><br>
-						<li class="nav-butts funcBTNSX" id="logoutBtn"><a href="<?php echo base_url();?>dashboard/logoutuser">Logout</a></li>
-						<li class="nav-butts "><a href=""></a></li>
+						<a href="<?php echo base_url();?>feeds"><li class="nav-butts funcBTNS">News Feed</li></a><br>
+						<a href="<?php echo base_url();?>profile/"><li class="nav-butts funcBTNS">Profile</li></a><br>
+						<a href="<?php echo base_url();?>dashboard/logoutuser"><li class="nav-butts funcBTNSX" id="logoutBtn">Logout</li></a>
+						<!-- <li class="nav-butts "><a href=""></a></li> -->
 					</ul>
 				</nav>
 			</div>

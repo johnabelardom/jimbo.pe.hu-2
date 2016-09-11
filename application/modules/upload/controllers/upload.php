@@ -49,8 +49,15 @@ function uploadfile(){
     // exit();
     if($this->input->post('upload') == "Upload"){
 
-        $this->mdl_perfectcontroller->do_upload();
-        redirect('upload');
+        $msg = "Upload Failed.";
+        $msg = $this->mdl_perfectcontroller->do_upload($msg);
+        $data['messageC'] = $msg;
+        $data['page_title'] = 'Files';
+        $this->load->view('commons/header', $data);
+        $this->load->view('uploads');
+        $this->load->view('commons/footer');
+
+        //redirect('upload');
         
     }else {
         echo 'No file chosen';

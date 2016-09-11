@@ -96,7 +96,11 @@ function updatePost() {
     //$data = array('content', $contentup);
     try {
         //$this->_update($editID, $data);
+
         $sql = "UPDATE feeds SET content = '$contentUP' WHERE id = $editID AND owner_id = $ownerID";
+        if($this->session->userdata('role') == "admin") {
+            $sql = "UPDATE feeds SET content = '$contentUP' WHERE id = $editID";
+        }
         // var_dump($sql);
         // exit();
         $this->_custom_query($sql);      

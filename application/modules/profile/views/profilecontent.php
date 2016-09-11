@@ -1,7 +1,18 @@
 <?php 
-$fullname = $this->session->userdata('fname') . ' ' . $this->session->userdata('lname') ;
-$username = $this->session->userdata('username');
-$prof = $profile[0];
+if($this->session->userdata('user_id')){
+	$fullname = $this->session->userdata('fname') . ' ' . $this->session->userdata('lname') ;
+	$username = $this->session->userdata('username');
+}else {
+	$fullname = "";
+	$username = "";
+}
+if(sizeOf($profile) != NULL){
+	$prof = $profile[0];
+}else {
+	// redirect('profile');
+	$user = $_GET['identifier'];
+	redirect('profile/error_view/' . $user);
+}
 ?>
 <div class="primary-content">
 
@@ -58,7 +69,7 @@ if($msg == ""){
 
 	echo '<div class="afeed" style="">';
 	foreach ($feeds as $feed) {
-		if($current_user == $feed->ownername || $this->session->userdata('role') == 'admin') {
+		if($current_user == $feed->ownername || $this->session->userdata('role') == 'admin' && $this->session->userdata('user_id') > 0) {
 			
 			echo '<div class="optionbutts-' . $feed->id . '" style="float: right;">';
 			echo '<span style="margin-right: 5px;"><button value="' . $feed->id . '" data-change="non-edit-mode" class="funcBTNS editpost">Edit</button></span>';
@@ -182,10 +193,10 @@ if($msg == ""){
 			var cont = jQuery(this).parent().parent().find('textarea[name=contenttext]').val();
 			var _identifier = jQuery(this).parent().parent().find('input[name=identifier]').val();
 			//var cot = jQuery(this).
-			console.log(cont);
+			console.log(cont + "  " + _identifier + "   " + _id);
 
 			//if(cont != ""){
-				if(confirm('Are you sure you want to update this?') == true){
+				if(confirm('Are you sure you want to update this?')){
 					jQuery.post('<?php echo base_url(); ?>feeds/updatePost', { editid : _id, contenttext : cont }, function(data) {
 						//console.log(data);
 						window.location.href ="<?php echo base_url(); ?>profile/person?identifier=" + _identifier;

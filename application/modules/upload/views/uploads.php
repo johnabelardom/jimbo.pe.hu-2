@@ -23,7 +23,8 @@
 
 		echo form_close();
 	?>
-	<p>Allowed files: <i>jpeg, jpg, gif, png, docx, doc, ppt, pptx, rar, zip and txt.</i></p>
+	<p>Maximum of 2 MB size per file.</p>
+	<p>Allowed files: <i class="filetypes">jpeg, jpg, gif, png, docx, doc, ppt, pptx, rar, zip and txt.</i></p>
 
 <style>
 
@@ -37,25 +38,49 @@
 	
 	function filecheck() {
 
+		//alert($("input[name=userfile]")[0].files[0].size);
+
 		var _file = jQuery('input[type=file]').val();
-		// var _types
 
-		// var _fileex = _file.split(".").pop(-1);
-		// alert(_fileex);
+		var _types = jQuery('.filetypes').text();
 
-		// if(strpos())
+		var _fileex = _file.split(".").pop(-1);
+		var filecheck = 0;
 
-		if(_file == ""){
-
-			jQuery('input[type=file]').attr('style', 'border: 1px red solid;');
-			jQuery('input[type=file]').effect('shake');
-
-			return false;
-			
-		}else {
-			return true;
+		if(_types.indexOf(_fileex) > 0) {
+			filecheck = 1;
 		}
 
+		if(_file == "" || (! filecheck > 0)){
+
+			if(_file == "") {
+				jQuery('input[type=file]').attr('style', 'border: 1px red solid;');
+				jQuery('input[type=file]').effect('shake');
+				alert('No file chosen.');
+				return false;
+			}
+
+			if(! filecheck > 0) {
+				jQuery('input[type=file]').attr('style', 'border: 1px red solid;');
+				jQuery('input[type=file]').effect('shake');
+				alert('The file that you want to upload is not allowed to be upload.');
+				return false;
+			}
+			
+		}else {
+
+			var _f_size = file_size / 1024;
+			var file_size = jQuery("input[name=userfile]")[0].files[0].size;
+			if(_f_size >= 2001) {
+
+				jQuery('input[type=file]').attr('style', 'border: 1px red solid;');
+				jQuery('input[type=file]').effect('shake');
+				alert('The size of the file that you want to upload is not allowed to be upload. It exceed the maximum upload file.');
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	// jQuery(document).ready(function() {

@@ -12,7 +12,7 @@ function __construct() {
 
 
 
-function do_upload() {
+function do_upload($msg) {
 
     $config = array(
         'allowed_types' => 'jpeg|jpg|gif|png|docx|doc|ppt|pptx|rar|zip|txt',
@@ -24,10 +24,12 @@ function do_upload() {
 
         $this->load->library('upload', $config);
         $this->upload->do_upload();
+        $msg = "<p style='color: green;'>Successfully Uploaded.</p>";
+        return $msg;
 
 
     }catch (Exception $e) {
-        echo '[Upload Error] ' . $e->getMessage(); 
+        $msg = '<p style="color: red;">[Upload Error] ' . $e->getMessage() . '</p>'; 
     }
     
 }
